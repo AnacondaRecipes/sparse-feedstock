@@ -1,27 +1,27 @@
 {% set name = "sparse" %}
-{% set version = "0.13.0" %}
-{% set sha256 = "c1f37c2097dfb017789ade963cebd199151b015aa6a30eece2359eb4e3c545e1" %}
+{% set version = "0.14.0" %}
+{% set sha256 = "5f5827a37f6cd6f6730a541f994c95c60a3ae2329e01f4ba21ced5339aea0098" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://github.com/pydata/{{ name }}/archive/{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
-  noarch: python
   number: 0
   script: {{ PYTHON }} -m pip install . -vv
+  # skip as per upstream req
+  skip: True  # [py<38]
 
 requirements:
   build:
-    - python >=3.7
+    - python
     - pip
   run:
-    - python >=3.7
+    - python
     - numpy >=1.17
     - scipy >=0.19
     - numba >=0.49
@@ -31,16 +31,15 @@ test:
     - sparse
 
 about:
-  home: https://github.com/pydata/sparse
+  home: https://sparse.pydata.org
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
   summary: Sparse multi-dimensional arrays for the PyData ecosystem
-
   description: |
     sparse implements sparse multidimensional arrays on top of Numpy
     and scipy.sparse. It tries to mimic Numpy's ndarray API.
-  doc_url: https://sparse.pydata.org/en/{{ version }}/
+  doc_url: https://sparse.pydata.org
   dev_url: https://github.com/pydata/sparse
 
 extra:
