@@ -12,7 +12,7 @@ source:
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   # skip as per upstream req
   skip: True  # [py<38]
 
@@ -20,6 +20,8 @@ requirements:
   build:
     - python
     - pip
+    - wheel
+    - setuptools
   run:
     - python
     - numpy >=1.17
@@ -29,6 +31,10 @@ requirements:
 test:
   imports:
     - sparse
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://sparse.pydata.org
