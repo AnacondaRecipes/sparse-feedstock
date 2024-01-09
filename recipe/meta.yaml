@@ -13,8 +13,8 @@ source:
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-  # skip as per upstream req
-  skip: True  # [py<38]
+  # skip as per upstream req, also missing numba >=0.49 for s390x
+  skip: True  # [py<38 or s390x]
 
 requirements:
   build:
