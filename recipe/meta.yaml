@@ -30,13 +30,11 @@ requirements:
     - numba >=0.49
 
 test:
-  source_files:
-    - sparse/tests
   imports:
     - sparse
   commands:
     - pip check
-    - pytest sparse/tests
+    - pytest -v --pyargs sparse
   requires:
     - pip
     - dask
