@@ -1,26 +1,25 @@
 {% set name = "sparse" %}
-{% set version = "0.15.4" %}
-{% set sha256 = "d4b1c57d24ff0f64f2fd5b5a95b49b7fb84ed207a26d7d58ce2764dcc5c72b84" %}
+{% set version = "0.17.0" %}
+{% set sha256 = "6b1ad51a810c5be40b6f95e28513ec810fe1c785923bd83b2e4839a751df4bf7" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ sha256 }}
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   # skip as per upstream req, also missing numba >=0.49 for s390x
-  skip: True  # [py<38 or s390x]
+  skip: true  # [py<310 or s390x]
 
 requirements:
   host:
     - python
     - pip
-    - wheel
     - setuptools >=64
     - setuptools-scm >=8
   run:
@@ -28,6 +27,9 @@ requirements:
     - numpy >=1.17
     - scipy >=0.19
     - numba >=0.49
+  run_constrained:
+    - finch-tensor >=0.2.12
+    - finch-mlir >=0.0.2
 
 test:
   imports:
