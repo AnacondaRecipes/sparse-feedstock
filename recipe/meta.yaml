@@ -42,7 +42,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest -v {{ ignore_tests }} --pyargs sparse.tests
+    - pytest -vv {{ ignore_tests }} --pyargs sparse.tests
 
 about:
   home: https://sparse.pydata.org
