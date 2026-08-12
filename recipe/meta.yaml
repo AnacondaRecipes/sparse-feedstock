@@ -1,10 +1,8 @@
 {% set name = "sparse" %}
 {% set version = "0.19.1" %}
-{% set ignore_tests = " --ignore=mlir_backend/tests" %}
 
-# E   ModuleNotFoundError: No module named 'mlir_finch'
 package:
-  name: {{ name }}
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
@@ -30,18 +28,21 @@ requirements:
     - finch-tensor >=0.2.13
     - finch-mlir >=0.0.2
 
+# E   ModuleNotFoundError: No module named 'mlir_finch'
+{% set ignore_tests = " --ignore=mlir_backend/tests" %}
+
 test:
   imports:
     - sparse
   requires:
     - pip
-    - pytest >=3.5
     - dask
     - scipy
+    - pytest >=3.5
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest -vv {{ ignore_tests }} --pyargs sparse.tests
+    - pytest -v {{ ignore_tests }} --pyargs sparse.tests
 
 about:
   home: https://sparse.pydata.org
