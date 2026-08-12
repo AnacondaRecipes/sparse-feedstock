@@ -1,13 +1,13 @@
 {% set name = "sparse" %}
-{% set version = "0.19.0" %}
+{% set version = "0.19.1" %}
 
 package:
-  name: {{ name }}
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: a95a52c63b45e2071df014d3f60080d36d160288131533a3b844021450677430
+  sha256: 159b5a2598b0cf0f94cfa417a72dddb5dcee2120b4405717456d8701c0d006ae
 
 build:
   number: 0
@@ -36,9 +36,9 @@ test:
     - sparse
   requires:
     - pip
-    - pytest >=3.5
     - dask
     - scipy
+    - pytest >=3.5
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
